@@ -88,7 +88,7 @@ callback function.
 
 ### Browser Quirks
 
-Values for X, Y, Z motion are all randomly generated in order to simulate the accelerometer.
+Values for X, Y motion are calculated from the mouse event and the value for Z motion is randomly generated in order to simulate the accelerometer.
 
 ### Android Quirks
 

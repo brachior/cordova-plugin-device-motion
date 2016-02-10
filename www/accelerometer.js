@@ -121,6 +121,10 @@ var accelerometer = {
         if (!running) {
             start();
         }
+
+        if (cordova.platformId === "browser") {
+            window.dispatchEvent(new Event('devicemotion'));
+        }
     },
 
     /**
@@ -169,7 +173,7 @@ var accelerometer = {
             var devicemotionEvent = new Event('devicemotion');
             eventTimerId = window.setInterval(function() {
                 window.dispatchEvent(devicemotionEvent);
-            }, 200);
+            }, frequency);
         }
 
         return id;

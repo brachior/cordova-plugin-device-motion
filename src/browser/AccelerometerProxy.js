@@ -19,27 +19,35 @@
  *
 */
 
+var accel = {
+    x: 0,
+    y: 0,
+    z: 0,
+    timestamp: 0,
+
+    listen: function(event) {
+        // FIXME need to simulate values like the accelerometer
+        accel.x = event.clientX;
+        accel.y = event.clientY;
+        accel.z = (Math.round(((Math.random() * 2) - 1) * 100) / 100);
+        accel.timestamp = new Date().getTime();
+    }
+};
 
 function listener(success) {
-    var accel = {};
-
-    accel.x = (Math.round(((Math.random() * 2) - 1) * 100) / 100);
-    accel.y = (Math.round(((Math.random() * 2) - 1) * 100) / 100);
-    accel.z = (Math.round(((Math.random() * 2) - 1) * 100) / 100);
-    accel.timestamp = new Date().getTime();
-
     success(accel);
-
-    window.removeEventListener('devicemotion', listener, false);
+    window.removeEventListener('devicemotion', listener, true);
 }
 
 var Accelerometer = {
     start: function start(success, error) {
-        return window.addEventListener('devicemotion', function(){
+        return window.addEventListener('devicemotion', function() {
             listener(success);
-        }, false);
+        }, true);
     }
 };
+
+document.addEventListener('mousemove', accel.listen);
 
 module.exports = Accelerometer;
 require('cordova/exec/proxy').add('Accelerometer', Accelerometer);
